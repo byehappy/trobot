@@ -8,7 +8,7 @@ export const Container = styled.div`
   top: 0;
   right: 0;
   left: 0;
-  background: rgba(227, 217, 231);
+  background: rgba(0, 0, 0, 0.25);
 `
 export const ContainerItem = styled.div`
   margin: auto;

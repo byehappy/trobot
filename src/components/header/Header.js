@@ -4,7 +4,7 @@ import Modal from "../auth/Modal";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const[authForm,setAuthForm] = useState(null)
+    const [authForm, setAuthForm] = useState(null)
     const RegForm = () => {
         setIsOpen(true);
         setAuthForm(true)
@@ -20,11 +20,11 @@ const Header = () => {
     return (
         <>
             <Container>
-                <Logo><span style={{color: 'blue'}}>T</span>Robot</Logo>
+                    <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
                 <ContainerButtons>
-                    <Buttons>Каталог</Buttons>
-                    <Buttons>Мои курсы</Buttons>
-                    <Buttons>Отзывы</Buttons>
+                    <Buttons to={'/catalog'}>Каталог</Buttons>
+                    <Buttons to={'/my-curses'}>Мои курсы</Buttons>
+                    <Buttons to={'/reviews'}>Отзывы</Buttons>
                 </ContainerButtons>
                 <AuthContainer>
                     <Registration onClick={RegForm}>Регистрация</Registration>

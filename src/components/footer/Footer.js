@@ -7,7 +7,9 @@ const Footer = () =>{
     return(
         <>
             <Container>
-                <Logo><span style={{color: 'blue'}}>T</span>Robot</Logo>
+
+                <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
+
                 <ContainerButtons>
                     <Buttons>О нас</Buttons>
                     <Buttons>Контакты</Buttons>
