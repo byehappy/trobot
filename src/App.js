@@ -5,6 +5,7 @@ import Footer from "./components/footer/Footer";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {Catalog} from "./components/catalogComponents/Catalog";
 import {Reviews} from "./components/Pages/Reviews";
+import CoursePromo from "./components/Pages/CoursePromo";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path={'/'} element={<MainPage/>}/>
                     <Route path={'/catalog'} element={<Catalog/>}/>
                     <Route path={'/reviews'} element={<Reviews/>}/>
+                    <Route path={'/course-info/:id'} element={<CoursePromo/>}/>
                 </Routes>
                 <Footer/>
             </Router>

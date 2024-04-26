@@ -33,12 +33,7 @@ import SubsSlider from "./Slider";
 
 const MainComponent = () => {
     const [dataCourses, setDataCourses] = useState(null);
-    const subscribeRef = useRef(null);
-    const handleScrollToSubscribe = () => {
-        if (subscribeRef.current) {
-            subscribeRef.current.scrollIntoView({behavior: "smooth"});
-        }
-    };
+
     useEffect(() => {
         fetch("http://localhost:3001/api/courses",{method:"GET"}).then(res => res.json()).then(data => setDataCourses(data)).catch(err => console.log(err))
     }, []);
@@ -52,7 +47,7 @@ const MainComponent = () => {
                     <div className='twos'>Получи востребованную профессию уже сейчас! Курсы на любой вкус. Для
                         школьников, родителей, и всех, кто хочет познакомиться с основами робототехники
                     </div>
-                    <ButtonIntro onClick={handleScrollToSubscribe}>Записаться на курс</ButtonIntro>
+                    <ButtonIntro>Записаться на курс</ButtonIntro>
                 </TextIntro>
                 <PictureIntro src={intro}/>
             </ContainerIntro>
@@ -108,7 +103,6 @@ const MainComponent = () => {
                     </ReviewsItem>
                 </ReviewsContainer>
             </ReviewsBase>
-            <SubsSlider dataCourses={dataCourses}/>
         </MainContainer>
     )
 }

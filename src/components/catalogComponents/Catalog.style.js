@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import {Desctop_subtitle} from "../../styles/styles";
 
 export const Container = styled.div`
   display: flex;
-  width: 75vw;
-  margin-left: 13vw;
+  width: 80vw;
+  margin-left: 10vw;
   margin-top: 5vw;
   justify-content:space-around;
 `
@@ -19,9 +20,12 @@ export const ContainerGrid = styled.div`
   margin-top: 5vw;
 `
 export const Button = styled.button`
+  ${Desctop_subtitle};
   border: none;
   background: none;
-  font-family: Ubuntu;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
   cursor: pointer;
+  &:hover{
+   filter: opacity(65%);
+  }
 `
