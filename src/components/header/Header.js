@@ -1,22 +1,7 @@
 import {AuthContainer, AuthLog, Buttons, Container, ContainerButtons, Logo, Registration} from "./Header.style";
-import {useState} from "react";
-import Modal from "../auth/Modal";
+
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [authForm, setAuthForm] = useState(null)
-    const RegForm = () => {
-        setIsOpen(true);
-        setAuthForm(true)
-    }
-    const AuthForm = () => {
-        setIsOpen(true);
-        setAuthForm(false)
-    }
-
-    const handleCloseModal = () => {
-        setIsOpen(false);
-    }
     return (
         <>
             <Container>
@@ -27,9 +12,8 @@ const Header = () => {
                     <Buttons to={'/reviews'}>Отзывы</Buttons>
                 </ContainerButtons>
                 <AuthContainer>
-                    <Registration onClick={RegForm}>Регистрация</Registration>
-                    <AuthLog onClick={AuthForm}>Войти</AuthLog>
-                    {isOpen && <Modal authForm={authForm} open={isOpen} onClose={handleCloseModal}/>}
+                    <Registration to={'/auth/signup'}>Регистрация</Registration>
+                    <AuthLog to={'/auth/signin'}>Войти</AuthLog>
                 </AuthContainer>
             </Container>
         </>

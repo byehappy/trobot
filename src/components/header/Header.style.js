@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {NavLink} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {baseMargin} from "../../styles/styles";
 
 export const Container = styled.div`
@@ -35,9 +35,10 @@ export const Buttons = styled(NavLink)`
 export const AuthContainer = styled.div`
   display: flex;
   gap: 2vw;
+  align-items: center;
 `
 
-export const AuthLog = styled.button`
+export const AuthLog = styled(Link)`
   outline: none;
   background: none;
   cursor: pointer;
@@ -47,8 +48,9 @@ export const AuthLog = styled.button`
   font-weight: 400;
   padding: .8vw 2.6vw;
   border-radius: 2vw;
+  text-decoration: none;
 `
-export const Registration = styled.button`
+export const Registration = styled(Link)`
   outline: none;
   border: none;
   background: none;
@@ -56,4 +58,6 @@ export const Registration = styled.button`
   font-size: 1vw;
   font-family: Ubuntu,sans-serif;
   font-weight: 400;
+  
+  text-decoration: none;
 `
