@@ -50,6 +50,19 @@ export const AuthLog = styled(Link)`
   border-radius: 2vw;
   text-decoration: none;
 `
+
+export const ExitButton = styled.button`
+  outline: none;
+  background: none;
+  cursor: pointer;
+  border: black solid .2vw;
+  font-size: 1vw;
+  font-family: Ubuntu,sans-serif;
+  font-weight: 400;
+  padding: .8vw 2.6vw;
+  border-radius: 2vw;
+  text-decoration: none;
+`
 export const Registration = styled(Link)`
   outline: none;
   border: none;
