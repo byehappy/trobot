@@ -55,14 +55,26 @@ export const ExitButton = styled.button`
   outline: none;
   background: none;
   cursor: pointer;
+  border: none;
+  font-size: 1vw;
+  font-family: Ubuntu,sans-serif;
+  font-weight: 400;
+  padding: .2vw 0 0 0;
+  text-decoration: underline #7380ff;
+`
+export const AccountLink = styled(NavLink)`
+  outline: none;
+  background: none;
+  cursor: pointer;
   border: black solid .2vw;
   font-size: 1vw;
   font-family: Ubuntu,sans-serif;
   font-weight: 400;
-  padding: .8vw 2.6vw;
+  padding: .8vw 1vw;
   border-radius: 2vw;
   text-decoration: none;
 `
+
 export const Registration = styled(Link)`
   outline: none;
   border: none;

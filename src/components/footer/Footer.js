@@ -11,7 +11,7 @@ const Footer = () =>{
                 <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
 
                 <ContainerButtons>
-                    <Buttons>О нас</Buttons>
+                    <Buttons to={"/about"}>О нас</Buttons>
                     <Buttons>Контакты</Buttons>
                     <Buttons>Курсы</Buttons>
                 </ContainerButtons>

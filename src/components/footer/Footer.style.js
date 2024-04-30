@@ -22,10 +22,11 @@ export const ContainerButtons = styled.div`
   display: flex;
   gap: 2vw;
 `
-export const Buttons = styled.div`
+export const Buttons = styled(NavLink)`
   font-size: 1vw;
   font-family: Ubuntu,sans-serif;
   font-weight: 400;
+  text-decoration: none;
 `
 export const SocialContainer = styled.div`
   display: flex;

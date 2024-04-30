@@ -1,4 +1,5 @@
 import {
+    AccountLink,
     AuthContainer,
     AuthLog,
     Buttons,
@@ -8,31 +9,30 @@ import {
     Logo,
     Registration
 } from "./Header.style";
-import { useSelector, useDispatch } from "react-redux";
-import {resetAuthState} from "../../toolkitRedux/toolkitSlice";
+import {useSelector} from "react-redux";
+import {useAuth} from "../../hooks/useAuth";
 
 const Header = () => {
-    const {auth,login} = useSelector(state => state.toolkit);
-    const dispatch = useDispatch();
-
-    const handleLogout = () => {
-        localStorage.removeItem("refreshToken")
-        localStorage.removeItem("accessToken")
-        dispatch(resetAuthState());
-    };
+    const {login,id} = useSelector(state => state.toolkit);
+    const {logout, authed} = useAuth();
 
     return (
         <>
             <Container>
-                <Logo to={'/'}><span style={{ color: 'blue' }}>T</span>Robot</Logo>
+                <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
                 <ContainerButtons>
                     <Buttons to={'/catalog'}>Каталог</Buttons>
-                    <Buttons to={'/my-curses'}>Мои курсы</Buttons>
+                    {authed && <Buttons to={'/my-curses'}>Мои курсы</Buttons>}
                     <Buttons to={'/reviews'}>Отзывы</Buttons>
                 </ContainerButtons>
                 <AuthContainer>
-                    {auth ? <>
-                        Привет, {login}! <ExitButton onClick={handleLogout}>Выйти</ExitButton>
+                    {authed ? <>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "start"
+                        }}>Привет, {login}! <ExitButton onClick={logout}>Выйти</ExitButton></div>
+                        <AccountLink to={`/my-account/${id}`}>Личный кабинет</AccountLink>
                     </> : <>
                         <Registration to={'/auth/signup'}>Регистрация</Registration>
                         <AuthLog to={'/auth/signin'}>Войти</AuthLog>

@@ -28,8 +28,7 @@ import teacher from '../Images/teacher.svg'
 import user1 from '../Images/user1.svg'
 import user2 from '../Images/user2.svg'
 import stars from '../Images/5 star.svg'
-import {useEffect, useRef, useState} from "react";
-import SubsSlider from "./Slider";
+import {useEffect, useState} from "react";
 
 const MainComponent = () => {
     const [dataCourses, setDataCourses] = useState(null);
@@ -52,7 +51,7 @@ const MainComponent = () => {
                 <PictureIntro src={intro}/>
             </ContainerIntro>
             <Partners>
-                <div className='text'>Наши партнеры</div>
+                <div className={"text"}>Наши партнеры</div>
                 <img src={ya}/>
                 <img src={Super}/>
                 <img src={xiaomi}/>

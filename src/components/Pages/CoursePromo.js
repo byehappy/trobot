@@ -34,6 +34,8 @@ const CoursePromo = () => {
             .catch(err => console.log(err));
     }, [id]);
 
+
+
     return (
         <CourseMaterialContainer>
             {courseMaterial && (

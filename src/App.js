@@ -1,16 +1,11 @@
 import './App.css';
 import Header from "./components/header/Header";
-import MainPage from "./components/Pages/MainPage";
 import Footer from "./components/footer/Footer";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import {Catalog} from "./components/catalogComponents/Catalog";
-import {Reviews} from "./components/Pages/Reviews";
-import CoursePromo from "./components/Pages/CoursePromo";
-import RegisterForm from "./components/auth/RegisterForm";
-import LoginForm from "./components/auth/LoginForm";
+import {BrowserRouter as Router} from "react-router-dom";
 import {useCallback, useEffect, useRef} from "react";
-import {resetAuthState, setAuthState, setId, setLogin, setRole} from "./toolkitRedux/toolkitSlice";
+import {resetAuthState, setId, setLogin, setRole} from "./toolkitRedux/toolkitSlice";
 import {store} from "./toolkitRedux";
+import {AppRoute} from "./route/AppRoute";
 
 function App() {
     const getNewUserToken = async () => {
@@ -34,10 +29,10 @@ function App() {
                 localStorage.setItem("refreshToken", data.refreshToken);
                 localStorage.setItem("accessToken", data.accessToken);
                 const userData = data.user
-                store.dispatch(setAuthState(true))
                 store.dispatch(setLogin(userData.login))
                 store.dispatch(setRole(userData.role))
                 store.dispatch(setId(userData.id))
+                sessionStorage.setItem("loggedIn", "true");
 
             } else {
                 localStorage.removeItem("refreshToken");
@@ -63,19 +58,11 @@ function App() {
         return () => clearInterval(interval);
     }, [getToken]);
 
-
     return (
         <div className="App">
             <Router>
                 <Header/>
-                <Routes>
-                    <Route path={'/'} element={<MainPage/>}/>
-                    <Route path={'/auth/signup'} element={<RegisterForm/>}/>
-                    <Route path={'/auth/signin'} element={<LoginForm/>}/>
-                    <Route path={'/catalog'} element={<Catalog/>}/>
-                    <Route path={'/reviews'} element={<Reviews/>}/>
-                    <Route path={'/course-info/:id'} element={<CoursePromo/>}/>
-                </Routes>
+                    <AppRoute/>
                 <Footer/>
             </Router>
         </div>

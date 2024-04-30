@@ -2,13 +2,13 @@ import {ErrorMessage, Formik} from "formik";
 import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {ErrorContainer, FieldContainer, FormContainer, FormField, FormHeader, SubmitButton} from "./FormStyle";
-import {setAuthState, setId, setLogin, setRole} from "../../toolkitRedux/toolkitSlice";
-import {store} from "../../toolkitRedux";
 import {useDispatch} from "react-redux";
 import {addError} from "../../toolkitRedux/errorSlice";
+import {useAuth} from "../../hooks/useAuth";
 
 function LoginForm() {
-    const dispatch=useDispatch();
+    const {login} = useAuth();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const initialValues = {
         identity: '',
@@ -23,42 +23,14 @@ function LoginForm() {
             .matches(/^[a-zA-Z0-9]+$/, 'Используйте только латинские буквы и цифры')
     });
     const handleLogin = async (values) => {
-           const fetchLogin = async () =>{
-               const response = await fetch("http://localhost:3001/api/user/login", {
-                   method: "POST",
-                   headers: {
-                       "Content-Type": "application/json",
-                       "accept": "application/json"
-                   },
-                   body: JSON.stringify({login: values.identity, passwordHash: values.password})
-               });
-               if (!response.ok) {
-                   return Promise.reject(await response.json());
-               }
-               const tokens = await response.json();
-               localStorage.setItem('refreshToken', tokens.refreshToken);
-               localStorage.setItem('accessToken', tokens.accessToken);
-               const responseData = await fetch("http://localhost:3001/api/user/decode-token", {
-                   method: "POST",
-                   headers: {
-                       "Content-Type": "application/json",
-                       "accept": "application/json"
-                   },
-                   body: JSON.stringify({token: localStorage.getItem("accessToken")})
-               });
-               if (!responseData.ok) {
-                   return Promise.reject(await responseData.json());
-               }
-               const userData = await responseData.json();
-               store.dispatch(setAuthState(true));
-               store.dispatch(setLogin(userData.login));
-               store.dispatch(setRole(userData.role));
-               store.dispatch(setId(userData.id));
-               navigate("/");
-           }
-        fetchLogin().catch((error) => dispatch(addError(error.message)));
-
+        try {
+            await login(values.identity, values.password);
+            navigate("/");
+        } catch (error) {
+            dispatch(addError(error.message));
+        }
     };
+
 
 
     return (

@@ -54,8 +54,10 @@ export const Partners = styled.div`
   font-family: Manrope,sans-serif;
   font-weight: 700;
   font-size: 2vw;
+  margin-bottom: 3vw;
   .text{
     width: 5vw;
+    margin-right: 5vw;
   }
 `
 export const FeatureContainer = styled.div`
