@@ -3,10 +3,12 @@ import {useEffect, useState} from "react";
 import CourseCard from "../courseCard/CourseCard";
 import {ContainerGrid} from "../catalogComponents/Catalog.style";
 import * as React from "react";
+import {useSelector} from "react-redux";
 
 export const AccountPage = () => {
     const [profileData, setProfileData] = useState(null);
     const [purchaseCourses, setPurchaseCourses] = useState(null);
+    const {role} = useSelector(state => state.toolkit);
     const params = useParams();
     const id = params.id;
 
@@ -74,7 +76,7 @@ export const AccountPage = () => {
         <div>
             {profileData && (
                 <div>
-                    <h2>User Profile</h2>
+                    <h2>{role} Profile</h2>
                     <p>Name: {profileData.bio}</p>
                     <p>Email: {profileData.phone}</p>
                     <button onClick={() => handleProfileUpdate({ ...profileData, name: "New Name" })}>

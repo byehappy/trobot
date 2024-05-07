@@ -37,6 +37,7 @@ function App() {
             } else {
                 localStorage.removeItem("refreshToken");
                 localStorage.removeItem("accessToken");
+                sessionStorage.setItem("loggedIn", "false");
                 store.dispatch(resetAuthState());
             }
         } catch (err) {
@@ -49,6 +50,8 @@ function App() {
     const getToken = useCallback(() => {
         if (localStorage.getItem("refreshToken") !== null) {
             getNewUserToken();
+        } else{
+            sessionStorage.setItem("loggedIn", "false");
         }
     }, []);
     getToken();
