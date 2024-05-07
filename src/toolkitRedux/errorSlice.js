@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
 
 const initialState = {
     errors: []
@@ -9,7 +10,7 @@ const errorSlice = createSlice({
     initialState,
     reducers: {
         addError: (state, action) => {
-            state.errors.push(action.payload);
+            state.errors.push({message: action.payload, id: uuid()});
         },
         removeError: (state, action) => {
             state.errors.splice(action.payload, 1);
