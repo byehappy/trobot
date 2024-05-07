@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { MainContainer } from "../mainComponent/MainComponent.style";
 import {IntroTextH1, IntroTextSubtitle} from "../Pages/Reviews";
 import { useParams } from "react-router-dom";
-
+import styled from "styled-components";
+const LessonContainer = styled.div`
+  margin-left: 2vw;
+  margin-right: 1vw;
+  padding-top: 5vw;
+`
 const Lesson = () => {
     const [lessonData, setLessonData] = useState(null);
     const params = useParams();
@@ -17,27 +20,27 @@ const Lesson = () => {
     }, [id]);
 
     return (
-        <MainContainer>
+        <LessonContainer>
             {lessonData && (
-                <div style={{ display: "grid", gridTemplateColumns: "50% 50%" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "40% 60%",gap:"1vw"}}>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "left",overflowY:'scroll',height: "40vw"}}>
                         <IntroTextH1>Урок {lessonData.part}</IntroTextH1>
                         <IntroTextSubtitle>{lessonData.name}</IntroTextSubtitle>
                         <p>{lessonData.content}</p>
-                        <div style={{minHeight:"30vw",padding:"2vw"}}>
-                            <iframe width="100%" height="100%" frameBorder="0" title="обучающее видео" src={`https://www.youtube.com/embed/${lessonData.contentVideo[0]}`}></iframe>
+                        <IntroTextSubtitle>Обучающее видео</IntroTextSubtitle>
+                        <div style={{minHeight:"30vw",marginTop:"1vw"}}>
+                            <iframe width="100%" height="100%" frameBorder="0" title="обучающее видео" allow="fullscreen;" src={`https://www.youtube.com/embed/${lessonData.contentVideo[0]}`}></iframe>
                         </div>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                        <LiveProvider code="<div>Hello World</div>">
-                            <LiveEditor style={{ height: '25vw', textAlign: "left" }} />
-                            <LiveError />
-                            <LivePreview />
-                        </LiveProvider>
-                    </div>
+                    <iframe src="https://codesandbox.io/embed/49pt9x?view=editor+%2B+preview&module=%2Fsrc%2Findex.js"
+                            style={{width:"100%",height:"100%",border:0,borderRadius:"4px",overflow:"hidden"}}
+                            title="test-1"
+                            allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+                            sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+                    ></iframe>
                 </div>
             )}
-        </MainContainer>
+        </LessonContainer>
     );
 };
 

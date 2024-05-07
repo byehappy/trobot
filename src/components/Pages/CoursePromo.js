@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import styled from "styled-components";
 import {useParams} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addError} from "../../toolkitRedux/errorSlice";
 
 const CourseMaterialContainer = styled.div`
   padding: 20px;
@@ -35,6 +36,7 @@ const CourseMaterialItem = styled.div`
 
 const CoursePromo = () => {
     const [courseMaterial, setCourseMaterial] = useState(null);
+    const dispatch = useDispatch();
     const userId = useSelector(state => state.toolkit.id);
     const { authed } = useAuth();
     const params = useParams();
@@ -44,7 +46,7 @@ const CoursePromo = () => {
         fetch(`http://localhost:3001/api/course-material/${id}`, { method: 'GET' })
             .then(res => res.json())
             .then(data => setCourseMaterial(data))
-            .catch(err => console.log(err));
+            .catch(err => dispatch(addError(err.message)));
     }, [id]);
 
     const handlePurchase = async () => {

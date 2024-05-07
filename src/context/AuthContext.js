@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
     const logout = useCallback(() => {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("accessToken");
-        sessionStorage.removeItem("loggedIn");
+        sessionStorage.setItem("loggedIn","false");
         setAuthed(false)
         dispatch(resetAuthState());
     }, [dispatch]);
