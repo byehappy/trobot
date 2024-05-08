@@ -7,8 +7,6 @@ export const Container = styled.div`
   justify-content: space-between;
   height: 5vw;
   margin-top: 3vw;
-  margin-left: 10vw;
-  margin-right: 10vw;
   align-items: center;
 `
 export const Logo = styled(NavLink)`

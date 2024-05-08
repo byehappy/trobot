@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import {Link, NavLink} from 'react-router-dom';
-import {baseMargin} from "../../styles/styles";
 
 export const Container = styled.div`
   display: flex;
-  ${baseMargin};
   justify-content: space-between;
   align-items: center;
   height: 5vw;
@@ -18,8 +16,8 @@ export const Logo = styled(NavLink)`
 `
 export const ContainerButtons = styled.div`
   display: flex;
+  margin-left: 10%;
   gap: 2vw;
-  margin-left: 7vw;
 `
 export const Buttons = styled(NavLink)`
   font-size: 1vw;

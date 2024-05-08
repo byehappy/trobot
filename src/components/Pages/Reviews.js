@@ -5,17 +5,17 @@ import StudentOne from '../Images/student-1.png'
 import StudentTwo from '../Images/student-2.png'
 import Mike from '../Images/Miketyson.png'
 import stars from '../Images/5 star.svg'
-import {baseMargin, Desctop, Desctop_body, Desctop_subtitle} from "../../styles/styles";
+import {Desctop, Desctop_body, Desctop_subtitle} from "../../styles/styles";
 
 const dynamicMarginForPicture = (props) => {
     if (props.right) {
         return `
-      margin-right: 10vw;
+      margin-right: 5vw;
     `;
     }
     if (props.left) {
         return `
-      margin-left: 10vw;
+      margin-left: 5vw;
     `;
     }
     return null;
@@ -36,7 +36,6 @@ const dynamicMarginForText = (props) => {
     return null;
 };
 export const Container = styled.div`
-  ${baseMargin};
   margin-top: 5vw;
 `
 export const IntroContainer = styled.div`

@@ -1,12 +1,14 @@
 import {ErrorMessage, Formik} from "formik";
 import * as Yup from "yup";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {ErrorContainer, FieldContainer, FormContainer, FormField, FormHeader, SubmitButton} from "./FormStyle";
 import {useDispatch} from "react-redux";
 import {addError} from "../../toolkitRedux/errorSlice";
 import {useAuth} from "../../hooks/useAuth";
 
 function LoginForm() {
+    const location = useLocation();
+    const state = location.state;
     const {login} = useAuth();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,7 +27,11 @@ function LoginForm() {
     const handleLogin = async (values) => {
         try {
             await login(values.identity, values.password);
-            navigate("/");
+            if (state?.from) {
+                navigate(state?.from);
+            } else {
+                    navigate('/');
+                }
         } catch (error) {
             dispatch(addError(error.message));
         }
@@ -49,7 +55,7 @@ function LoginForm() {
                     <FormContainer>
                         <FieldContainer>
                             <FormField type="identity" name="identity"
-                                       placeholder={'Логин / Почта'}/>
+                                       placeholder={'Логин'}/>
                             <ErrorContainer className={'error-container'}>
                                 <ErrorMessage name="identity" component="div" className="ErrorMessages"/>
                             </ErrorContainer>

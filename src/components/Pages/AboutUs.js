@@ -31,7 +31,7 @@ export const AboutUs = () => {
                     <IntroTextH1>О НАС</IntroTextH1>
                     <IntroTextSubtitle>Мы команда профессиональных робототехников, которые разработали этот сайт с курсами
                         по робототехнике для того, чтобы помочь людям начать свой путь в этой увлекательной области.</IntroTextSubtitle>
-                    <ButtonIntro>Выбрать курс</ButtonIntro>
+                    <ButtonIntro to={'/catalog'}>Выбрать курс</ButtonIntro>
                 </IntroText>
                 <IntroPicture src={intro}/>
             </IntroContainer>

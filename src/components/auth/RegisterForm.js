@@ -1,8 +1,11 @@
 import {ErrorMessage, Formik} from "formik";
 import * as Yup from "yup";
 import {ErrorContainer, FieldContainer, FormContainer, FormField, FormHeader, SubmitButton} from "./FormStyle";
+import {useDispatch} from "react-redux";
+import {addError} from "../../toolkitRedux/errorSlice";
 
 const RegisterForm = () => {
+    const dispatch = useDispatch()
     const initialValues = {
         email: '',
         password: '',
@@ -19,11 +22,18 @@ const RegisterForm = () => {
             .matches(/^[a-zA-Z0-9]+$/, 'Используйте только латинские буквы и цифры')
     });
     const handleSubmit = async (values) => {
-        await fetch("http://localhost:3001/api/user/registration", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({login: values.login, passwordHash: values.password,role:"USER",email:values.email})
-        })
+        try{
+           const res = await fetch("http://localhost:3001/api/user/registration", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({login: values.login, passwordHash: values.password,role:"USER",email:values.email})
+            })
+            if (!res.ok) {
+                throw await res.json();
+            }
+        } catch (error){
+            dispatch(addError(error.message));
+        }
     }
     return (
         <>
