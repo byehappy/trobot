@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {Desctop_link} from "../../styles/styles";
 import ExclamationIconSVG from "../Images/exclamation.svg";
 import CloseIconSVG from "../Images/close.svg";
+import DoneIconSVG from "../Images/done.svg"
 
 export const ToasterContainer = styled.div`
     position: fixed;
@@ -12,23 +13,21 @@ export const ToasterContainer = styled.div`
     flex-direction: column;
     align-items: flex-end;
 `
-export const ToasterItem = styled.div`
-`
 
-export const ErrorToast = styled.div`
+export const Toast = styled.div`
     display: flex;
     align-items: center;
     width: 30vw;
-    background: red;
+    background: ${props => props.type === 'error' ? 'red' : 'green'};
     color: white;
     padding: 10px;
     margin: 5px;
     border-radius: 1em;
 `
-export const ErrorIcon = styled.div`
+export const ToasterIcon = styled.div`
 `
 
-export const ErrorMessage = styled.div`
+export const ToasterMessage = styled.div`
     flex-grow: 1;
     text-align: center;
     ${Desctop_link};
@@ -60,6 +59,13 @@ export const CloseIcon = styled(Icon).attrs({
 
 export const ExclamationIcon = styled(Icon).attrs({
     src: ExclamationIconSVG
+})`
+    width: 4vw; /* Изменяем размер иконки "exclamation" */
+    height: 5vh;
+`
+
+export  const DoneIcon = styled(Icon).attrs({
+    src: DoneIconSVG
 })`
     width: 4vw; /* Изменяем размер иконки "exclamation" */
     height: 5vh;

@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import {useNavigate} from "react-router-dom";
 import {ErrorContainer, FieldContainer, FormContainer, FormField, FormHeader, SubmitButton} from "./FormStyle";
 import {useDispatch} from "react-redux";
-import {addError} from "../../toolkitRedux/errorSlice";
+import {addMessage} from "../../toolkitRedux/ToasterSlice";
 import {useAuth} from "../../hooks/useAuth";
 
 function LoginForm() {
@@ -27,7 +27,7 @@ function LoginForm() {
             await login(values.identity, values.password);
             navigate("/");
         } catch (error) {
-            dispatch(addError(error.message));
+            dispatch(addMessage({type: "error", message: error.message}));
         }
     };
 
