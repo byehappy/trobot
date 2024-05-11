@@ -1,6 +1,16 @@
 import React from 'react';
-import {CardContainer, CourseImage, Duration, InfoContainer, Price, Tag, Tags, Title} from "./CourseCard.style";
-import {Link, NavLink} from "react-router-dom";
+import {
+    CardContainer,
+    CourseImage,
+    Description,
+    Duration,
+    InfoContainer,
+    Price,
+    Tag,
+    Tags,
+    Title
+} from "./CourseCard.style";
+import {Link} from "react-router-dom";
 
 
 const CourseCard = ({ course,index }) => {
@@ -15,7 +25,10 @@ const CourseCard = ({ course,index }) => {
                        ))}
                        <Title>{course.title}</Title>
                    </Tags>
-                   <Duration>{course.duration}ч. <Price>{course.price} тыс. ₽</Price></Duration>
+                   <div className={"gap-2 flex flex-col"}>
+                       <Description>{course.description}</Description>
+                       <Duration>{course.duration}ч. <Price>{course.price} тыс. ₽</Price></Duration>
+                   </div>
                </InfoContainer>
                <CourseImage src={course.iconUrl} alt={course.title}/>
         </CardContainer>

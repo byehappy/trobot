@@ -13,10 +13,9 @@ export const ContainerGrid = styled.div`
   display: grid;
   grid-template-columns: 33% 33% 33%;
   row-gap: 2vw;
-  column-gap: 5vw;   
-  max-width: 85%;
-  margin: 0 0.5% 0 0.5%;
-  margin-top: 5vw;
+  column-gap: 3vw;   
+  max-width: 94%;
+  margin: 5vw 0.5% 0 0.5%;
 `
 export const Button = styled.button`
   ${Desctop_subtitle};

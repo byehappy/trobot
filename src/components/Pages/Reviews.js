@@ -69,8 +69,6 @@ export const ReviewsContainer = styled.div`
   gap: 5vw;
 `
 export const ReviewsPicture = styled.img`
-  height: 15vw;
-  width: 15vw;
 `
 export const ReviesTextH3 = styled.div`
   ${Desctop};
