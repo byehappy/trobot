@@ -14,6 +14,7 @@ import {ContactPage} from "../components/Pages/ContactPage";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {OwnCreatorBuilder} from "../components/createCourse/OwnCreator";
+import {AdminPage} from "../components/admin/AdminPage";
 
 export const AppRoute = () => {
     return (
@@ -30,6 +31,7 @@ export const AppRoute = () => {
             <Route path={'/my-account/:id'} element={<ProtectedRoute element={<AccountPage/>}/>}/>
             <Route path={'/lesson/:id'} element={<ProtectedRoute element={<Lesson/>}/>}/>
             <Route path={'/teacher/create-course'} element={<ProtectedRouteRole reqRole={"TEACHER"} element={<OwnCreatorBuilder/>}/>}/>
+            <Route path={'/admin'} element={<ProtectedRouteRole reqRole={"ADMIN"} element={<AdminPage/>}/>}/>
         </Routes>
     );
 };

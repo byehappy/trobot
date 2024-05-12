@@ -60,9 +60,9 @@ export const Tags = styled.div`
 `;
 export const Description = styled.div`
     ${Desctop_body};
-  margin-top: .5vw;
   position: inherit;
   overflow-wrap: break-word;
+  overflow-y: clip;
 `;
 
 export const Tag = styled.span`

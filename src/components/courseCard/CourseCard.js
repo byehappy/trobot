@@ -25,7 +25,7 @@ const CourseCard = ({ course,index }) => {
                        ))}
                        <Title>{course.title}</Title>
                    </Tags>
-                   <div className={"gap-2 flex flex-col"}>
+                   <div className={"gap-2 flex flex-col max-h-[5rem]"}>
                        <Description>{course.description}</Description>
                        <Duration>{course.duration}ч. <Price>{course.price} тыс. ₽</Price></Duration>
                    </div>
