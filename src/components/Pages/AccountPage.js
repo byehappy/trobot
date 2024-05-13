@@ -10,6 +10,7 @@ export const AccountPage = () => {
     const {authed} = useAuth()
     const [profileData, setProfileData] = useState(null);
     const [purchaseCourses, setPurchaseCourses] = useState(null);
+    const [teacherApp, setTeacherApp] = useState(null);
     const [createProfile, setCreateProfile] = useState(false);
     const {role} = useSelector(state => state.toolkit);
     const userId = useSelector(state => state.toolkit.id);
@@ -19,7 +20,7 @@ export const AccountPage = () => {
     const [phone, setPhone] = useState("");
     const [bio, setBio] = useState("");
 
-    const handleChangeCreate = () =>{
+    const handleChangeCreate = () => {
         setCreateProfile(!createProfile)
     }
 
@@ -31,11 +32,33 @@ export const AccountPage = () => {
     }, [authed, userId, id, navigate]);
 
     useEffect(() => {
+        const fetchTeacherApp = async () => {
+            try {
+                const accessToken = localStorage.getItem("accessToken");
+                const bearer = 'Bearer ' + accessToken;
+                const teacherResponse = await fetch(`http://localhost:3001/api/teacher-application/${id}`, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': bearer,
+                        "Content-Type": "application/json"
+                    }
+                });
+                const teacherData = await teacherResponse.json();
+                setTeacherApp(teacherData);
+            } catch (error) {
+                console.error("Error fetching profile data:", error);
+            }
+        };
+
+        fetchTeacherApp();
+    }, [id]);
+
+    useEffect(() => {
         const fetchProfileData = async () => {
             try {
                 const accessToken = localStorage.getItem("accessToken");
                 const bearer = 'Bearer ' + accessToken;
-                const profileResponse = await fetch(`http://localhost:3001/api/profile/${id}`,{
+                const profileResponse = await fetch(`http://localhost:3001/api/profile/${id}`, {
                     headers: {
                         'Authorization': bearer,
                         "Content-Type": "application/json"
@@ -100,7 +123,7 @@ export const AccountPage = () => {
         try {
             const accessToken = localStorage.getItem("accessToken");
             const bearer = 'Bearer ' + accessToken;
-            const profileResponse = await fetch(`http://localhost:3001/api/profile/`,{
+            const profileResponse = await fetch(`http://localhost:3001/api/profile/`, {
                 method: "POST",
                 headers: {
                     'Authorization': bearer,
@@ -109,7 +132,7 @@ export const AccountPage = () => {
                 body: JSON.stringify({
                     bio,
                     phone,
-                    userId:id
+                    userId: id
                 })
             });
             const profileData = await profileResponse.json();
@@ -123,53 +146,91 @@ export const AccountPage = () => {
 
     return (
         <div>
-                <div>
-                    <h2>{role} Profile</h2>
-                    {profileData ? (
-                        <>
-                            <p>Name: {profileData.bio}</p>
-                            <p>Email: {profileData.phone}</p>
-                            <button onClick={() => handleProfileUpdate({...profileData, name: "New Name"})}>
-                                Update Name
-                            </button>
-                        </>
-                    ) : <>
-                        {createProfile===false && <button onClick={handleChangeCreate} className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Создать профиль
-                    </button>}
-                    </>
-                    }
-                    {createProfile && <>
-                        <div className="mt-5">
-                            <input
-                                type="text"
-                                placeholder="Введите номер телефона"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                                className="p-2 rounded border border-gray-300 mr-2"
-                            />
-                            <input
-                                type="text"
-                                placeholder="Введите ФИО"
-                                value={bio}
-                                onChange={(e) => setBio(e.target.value)}
-                                className="p-2 rounded border border-gray-300 mr-2"
-                            />
-                            <button
-                                onClick={handleCreateProfile}
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                            >
-                                Создать профиль
-                            </button>
-                            <button
-                                onClick={handleChangeCreate}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
-                            >
-                                Отменить
-                            </button>
+            <div className={"flex justify-center"}>
+                {teacherApp ? (
+                    <div className={"grid grid-cols-2 w-[35vw] gap-5"}>
+                        <div>
+                            <h2>{role} Профиль</h2>
+                            {profileData ? (
+                                <>
+                                    <p>Имя: {profileData.profile.bio}</p>
+                                    <p>Номер телефона: {profileData.profile.phone}</p>
+                                    <p>Почта: {profileData.email}</p>
+                                    <button onClick={() => handleProfileUpdate()}>
+                                        Обновить данные
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    {createProfile === false && (
+                                        <button onClick={handleChangeCreate} className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Создать профиль
+                                        </button>
+                                    )}
+                                </>
+                            )}
                         </div>
-                    </>}
+                        <div className={"flex justify-center"}>
+                            <div className={"border-2 rounded-2xl gap-2 flex flex-col w-52"}>
+                                <h1 className={"font-bold text-2xl"}>Ваша заявка</h1>
+                                Статус: {teacherApp.status}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className={"w-[35vw] gap-5"}>
+                        <h2>{role} Профиль</h2>
+                        {profileData ? (
+                            <>
+                                <p>Имя: {profileData.profile.bio}</p>
+                                <p>Номер телефона: {profileData.profile.phone}</p>
+                                <p>Почта: {profileData.email}</p>
+                                <button onClick={() => handleProfileUpdate()}>
+                                    Обновить данные
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                {createProfile === false && (
+                                    <button onClick={handleChangeCreate} className="mt-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Создать профиль
+                                    </button>
+                                )}
+                            </>
+                        )}
+                    </div>
+                )}
+            </div>
+            {createProfile && <>
+                <div className="mt-5">
+                    <input
+                        type="text"
+                        placeholder="Введите номер телефона"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="p-2 rounded border border-gray-300 mr-2"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Введите ФИО"
+                        value={bio}
+                        onChange={(e) => setBio(e.target.value)}
+                        className="p-2 rounded border border-gray-300 mr-2"
+                    />
+                    <button
+                        onClick={handleCreateProfile}
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Создать профиль
+                    </button>
+                    <button
+                        onClick={handleChangeCreate}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2"
+                    >
+                        Отменить
+                    </button>
                 </div>
+            </>}
             <ContainerGrid>
                 {purchaseCourses && purchaseCourses.map((course, index) => (
                     <CourseCard course={course} key={index} index={index}/>

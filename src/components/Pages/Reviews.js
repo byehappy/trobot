@@ -7,29 +7,14 @@ import Mike from '../Images/Miketyson.png'
 import stars from '../Images/5 star.svg'
 import {Desctop, Desctop_body, Desctop_subtitle} from "../../styles/styles";
 
-const dynamicMarginForPicture = (props) => {
-    if (props.right) {
-        return `
-      margin-right: 5vw;
-    `;
-    }
-    if (props.left) {
-        return `
-      margin-left: 5vw;
-    `;
-    }
-    return null;
-};
 const dynamicMarginForText = (props) => {
     if (props.right) {
         return `
       margin-left: 10vw;
-      margin-right: 5vw;
     `;
     }
     if (props.left) {
         return `
-      margin-left: 5vw;
       margin-right: 10vw;
     `;
     }
@@ -83,7 +68,6 @@ export const ReviewsCard = styled.div`
   gap: 1vw;
   display: flex;
   flex-direction: column;
-  ${dynamicMarginForPicture};
   align-items: flex-start;
 `
 export const Stars = styled.img`

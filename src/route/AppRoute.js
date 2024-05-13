@@ -15,6 +15,7 @@ import {useSelector} from "react-redux";
 import {useEffect} from "react";
 import {OwnCreatorBuilder} from "../components/createCourse/OwnCreator";
 import {AdminPage} from "../components/admin/AdminPage";
+import {TeachAppPage} from "../components/Pages/TeachAppPage";
 
 export const AppRoute = () => {
     return (
@@ -28,6 +29,7 @@ export const AppRoute = () => {
             <Route path={'/about'} element={<AboutUs/>}/>
             <Route path={"/contact"} element={<ContactPage/>}/>
             <Route path={"*"} element={<ErrorPage/>}/>
+            <Route path={"/teach-app"} element={<ProtectedRoute element={<TeachAppPage/>}/>}/>
             <Route path={'/my-account/:id'} element={<ProtectedRoute element={<AccountPage/>}/>}/>
             <Route path={'/lesson/:id'} element={<ProtectedRoute element={<Lesson/>}/>}/>
             <Route path={'/teacher/create-course'} element={<ProtectedRouteRole reqRole={"TEACHER"} element={<OwnCreatorBuilder/>}/>}/>

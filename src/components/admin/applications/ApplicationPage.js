@@ -7,7 +7,7 @@ export const ApplicationPage = () => {
     // Функция для загрузки списка заявок
     const fetchApplications = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/teacher-application",{
+            const response = await fetch("http://localhost:3001/api/teacher-application", {
                 headers: {
                     'Authorization': bearer,
                     "Content-Type": "application/json"
@@ -18,7 +18,7 @@ export const ApplicationPage = () => {
         } catch (error) {
             console.error("Error fetching applications:", error);
         }
-    },[bearer]);
+    }, [bearer]);
 
     useEffect(() => {
         fetchApplications();
@@ -79,15 +79,19 @@ export const ApplicationPage = () => {
 
     return (
         <div>
-            <h2>Applications</h2>
+            <h2>Заявки</h2>
             {applications.map((application) => (
-                <div key={application.id} className="border p-4 my-4">
-                    <p>ID: {application.id}</p>
-                    <p>User ID: {application.userId}</p>
-                    <p>Info: {application.info}</p>
-                    <p className={`Status ${getStatusColor(application.status)}`}>Status: {application.status}</p>
+                <div className={"border p-4 my-4 grid grid-cols-2"}>
+                    <div key={application.id} className="text-start col-span-2">
+                        <p>ID: {application.id}</p>
+                        <p>User ID: {application.userId}</p>
+                        <p>Резюме: {application.info.split('\n').map((item, index) => (
+                            <p key={index}>{item}</p>
+                        ))}</p>
+                        <p className={`Status ${getStatusColor(application.status)}`}>Status: {application.status}</p>
+                    </div>
                     {application.status === "PENDING" && (
-                        <>
+                        <div className={"flex items-center mt-3"}>
                             <button
                                 onClick={() => applyStatus(application.id)}
                                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
@@ -100,7 +104,7 @@ export const ApplicationPage = () => {
                             >
                                 Reject
                             </button>
-                        </>
+                        </div>
                     )}
                 </div>
             ))}

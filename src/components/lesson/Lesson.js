@@ -37,12 +37,12 @@ const Lesson = () => {
             {lessonData && (
                    <div style={{ display: "grid", gridTemplateColumns: "40% 60%", gap: "1vw"}}>
                        <div style={{ display: "flex", flexDirection: "column", textAlign: "left", overflowY: 'scroll', height: "40vw"}}>
-                           <div style={{display:"flex", justifyContent:"center"}}>
+                           <div className={"flex justify-center gap-5"}>
                                <button style={{border:"none",background:"none",cursor:"pointer",fontSize:"1vw"}} onClick={showContent}>Урок</button>
                                <button style={{border:"none",background:"none",cursor:"pointer",fontSize:"1vw"}} onClick={showVideo}>Видео</button>
                            </div>
                            <IntroTextH1>Урок {lessonData.part}</IntroTextH1>
-                           <IntroTextSubtitle>{lessonData.name}</IntroTextSubtitle>
+                           <IntroTextSubtitle className={"mb-5"}>{lessonData.name}</IntroTextSubtitle>
                            {currentContent === 'content' ? (
                                <>
                                    <p>{lessonData.content}</p>

@@ -47,13 +47,16 @@ const CoursePromo = () => {
             .then(res => res.json())
             .then(data => setCourseMaterial(data))
             .catch(err => dispatch(addError(err.message)));
-    }, [id]);
+    }, [dispatch, id]);
 
     const handlePurchase = async () => {
         try {
+            const accessToken = localStorage.getItem("accessToken");
+            const bearer = 'Bearer ' + accessToken;
             const response = await fetch(`http://localhost:3001/api/purchase`, {
                 method: "POST",
                 headers: {
+                    'Authorization': bearer,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
