@@ -1,5 +1,5 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import CourseCard from "../courseCard/CourseCard";
 import {ContainerGrid} from "../catalogComponents/Catalog.style";
 import * as React from "react";
@@ -53,26 +53,26 @@ export const AccountPage = () => {
         fetchTeacherApp();
     }, [id]);
 
-    useEffect(() => {
-        const fetchProfileData = async () => {
-            try {
-                const accessToken = localStorage.getItem("accessToken");
-                const bearer = 'Bearer ' + accessToken;
-                const profileResponse = await fetch(`http://localhost:3001/api/profile/${id}`, {
-                    headers: {
-                        'Authorization': bearer,
-                        "Content-Type": "application/json"
-                    }
-                });
-                const profileData = await profileResponse.json();
-                setProfileData(profileData);
-            } catch (error) {
-                console.error("Error fetching profile data:", error);
-            }
-        };
+    const fetchProfileData = useCallback(async () => {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const bearer = 'Bearer ' + accessToken;
+            const profileResponse = await fetch(`http://localhost:3001/api/profile/${id}`, {
+                headers: {
+                    'Authorization': bearer,
+                    "Content-Type": "application/json"
+                }
+            });
+            const profileData = await profileResponse.json();
+            setProfileData(profileData);
+        } catch (error) {
+            console.error("Error fetching profile data:", error);
+        }
+    },[id])
 
+    useEffect(() => {
         fetchProfileData();
-    }, [id]);
+    }, [fetchProfileData, id]);
     const handleProfileUpdate = async (updatedProfileData) => {
         try {
             const response = await fetch(`http://localhost:3001/api/profile/${id}`, {
@@ -138,6 +138,7 @@ export const AccountPage = () => {
             const profileData = await profileResponse.json();
             setProfileData(profileData);
             setCreateProfile(false)
+            fetchProfileData();
         } catch (error) {
             console.error("Error fetching profile data:", error);
         }
@@ -151,7 +152,7 @@ export const AccountPage = () => {
                     <div className={"grid grid-cols-2 w-[35vw] gap-5"}>
                         <div>
                             <h2>{role} Профиль</h2>
-                            {profileData ? (
+                            {profileData && profileData.profile ? (
                                 <>
                                     <p>Имя: {profileData.profile.bio}</p>
                                     <p>Номер телефона: {profileData.profile.phone}</p>
@@ -180,7 +181,7 @@ export const AccountPage = () => {
                 ) : (
                     <div className={"w-[35vw] gap-5"}>
                         <h2>{role} Профиль</h2>
-                        {profileData ? (
+                        {profileData && profileData.profile  ? (
                             <>
                                 <p>Имя: {profileData.profile.bio}</p>
                                 <p>Номер телефона: {profileData.profile.phone}</p>
