@@ -16,6 +16,7 @@ import {useEffect} from "react";
 import {OwnCreatorBuilder} from "../components/createCourse/OwnCreator";
 import {AdminPage} from "../components/admin/AdminPage";
 import {TeachAppPage} from "../components/Pages/TeachAppPage";
+import LessonList from "../components/Pages/LessonList";
 
 export const AppRoute = () => {
     return (
@@ -34,6 +35,7 @@ export const AppRoute = () => {
             <Route path={'/lesson/:id'} element={<ProtectedRoute element={<Lesson/>}/>}/>
             <Route path={'/teacher/create-course'} element={<ProtectedRouteRole reqRole={"TEACHER"} element={<OwnCreatorBuilder/>}/>}/>
             <Route path={'/admin'} element={<ProtectedRouteRole reqRole={"ADMIN"} element={<AdminPage/>}/>}/>
+            <Route path={'/lessons/:id'} element={<ProtectedRoute element={<LessonList/>}/>}/>
         </Routes>
     );
 };

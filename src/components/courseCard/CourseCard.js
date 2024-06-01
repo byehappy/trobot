@@ -13,10 +13,10 @@ import {
 import {Link} from "react-router-dom";
 
 
-const CourseCard = ({ course,index }) => {
+const CourseCard = ({ course,index,profilePage }) => {
 
     return (
-           <Link style={{textDecoration:"none"}} to={`/course-info/${course.id}`}>
+           <Link style={{textDecoration:"none"}} to={profilePage ? `/lessons/${course.id}` : `/course-info/${course.id}`}>
         <CardContainer index={index}>
                <InfoContainer>
                    <Tags>

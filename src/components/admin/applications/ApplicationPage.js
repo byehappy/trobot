@@ -81,14 +81,14 @@ export const ApplicationPage = () => {
         <div>
             <h2>Заявки</h2>
             {applications.map((application) => (
-                <div className={"border p-4 my-4 grid grid-cols-2"}>
+                <div key={application.id} className={"border p-4 my-4 grid grid-cols-2"}>
                     <div key={application.id} className="text-start col-span-2">
-                        <p>ID: {application.id}</p>
-                        <p>User ID: {application.userId}</p>
-                        <p>Резюме: {application.info.split('\n').map((item, index) => (
-                            <p key={index}>{item}</p>
-                        ))}</p>
-                        <p className={`Status ${getStatusColor(application.status)}`}>Status: {application.status}</p>
+                        <div>ID: {application.id}</div>
+                        <div>User ID: {application.userId}</div>
+                        <div>Резюме: {application.info.split('\n').map((item, index) => (
+                            <div key={index}>{item}</div>
+                        ))}</div>
+                        <div className={`Status ${getStatusColor(application.status)}`}>Status: {application.status}</div>
                     </div>
                     {application.status === "PENDING" && (
                         <div className={"flex items-center mt-3"}>

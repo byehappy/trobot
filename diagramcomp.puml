@@ -1,0 +1,98 @@
+@startuml diagram
+component AdminModule {
+  AdminPage.js
+  ApplicationPage.js
+}
+
+component AuthModule {
+  FormStyle.js
+  LoginForm.js
+  RegisterForm.js
+}
+
+component CatalogModule {
+  Catalog.js
+  Catalog.style.js
+  CourseCard.js
+  CourseCard.style.js
+}
+
+component CreateCourseModule {
+  CreateCourse.js
+  OwnCreator.js
+}
+
+component FooterModule {
+  Footer.js
+  Footer.style.js
+}
+
+component HeaderModule {
+  Header.js
+  Header.style.js
+}
+
+component LessonModule {
+  Lesson.js
+}
+
+component MainComponentModule {
+  MainComponent.js
+  MainComponent.style.js
+  Slider.js
+}
+
+component PagesModule {
+  AboutUs.js
+  AccountPage.js
+  ContactPage.js
+  CoursePromo.js
+  ErrorPage.js
+  LessonList.js
+  MainPage.js
+  Reviews.js
+  TeachAppPage.js
+}
+
+component UtilsModule {
+  Toaster.js
+}
+
+component ContextModule {
+  AuthContext.js
+}
+
+component HooksModule {
+  useAuth.js
+}
+
+component RouteModule {
+  AppRoute.js
+}
+
+component StylesModule {
+  styles.js
+}
+
+component ToolkitReduxModule {
+  errorSlice.js
+  index.js
+  lessonsSlice.js
+  toolkitSlice.js
+}
+
+component AppModule {
+  App.css
+  App.js
+  index.css
+  index.js
+}
+
+AdminModule --> CatalogModule
+CatalogModule --> CourseCard
+MainComponentModule --> PagesModule
+RouteModule --> PagesModule
+ToolkitReduxModule --> PagesModule
+UtilsModule --> ContextModule
+ContextModule --> AuthModule
+@enduml
