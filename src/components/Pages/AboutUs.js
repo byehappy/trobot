@@ -20,8 +20,7 @@ const IntroPicture = styled.img`
   margin-top: 2vw;
 `
 const ReviewsPicture = styled.img`
-  height: 25vw;
-  width: 25vw;
+  width: 50vw;
 `
 export const AboutUs = () => {
     return (

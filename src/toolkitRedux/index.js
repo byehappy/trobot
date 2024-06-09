@@ -1,5 +1,6 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import ToolkitSlice from "./toolkitSlice";
+
 import ToasterSlice from "./ToasterSlice";
 
 const rootReducer = combineReducers({

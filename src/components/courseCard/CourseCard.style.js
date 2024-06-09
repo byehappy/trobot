@@ -7,11 +7,25 @@ const getColor = index => colors[index % colors.length];
 
 export const CardContainer = styled.div`
   display: grid;
-  grid: 11vw / 75% 25%;
+  grid: 11vw / 70% 30%;
   border-radius: 1vw;
   width: 100%;
-  height: 11vw;
-  max-height: 11vw;
+  background: ${props => getColor(props.index)};
+  color: white;
+  padding: 1vw 2vw;
+  text-align: left;
+  transition: filter 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(110%);
+  }
+`;
+
+export const CardContainerExample = styled.div`
+  display: grid;
+  grid: 11vw / 70% 30%;
+  border-radius: 1vw;
+  width: 30vw;
   background: ${props => getColor(props.index)};
   color: white;
   padding: 1vw 2vw;
@@ -43,6 +57,12 @@ export const Tags = styled.div`
     ${Desctop_body};
   margin-top: .5vw;
   overflow: clip;
+`;
+export const Description = styled.div`
+    ${Desctop_body};
+  position: inherit;
+  overflow-wrap: break-word;
+  overflow-y: clip;
 `;
 
 export const Tag = styled.span`

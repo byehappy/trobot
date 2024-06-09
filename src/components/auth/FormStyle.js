@@ -16,6 +16,10 @@ export const FieldContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  .ErrorMessages{
+    color: red;
+    font-size: 1vw;
+  }
 `
 
 export const FormField = styled(Field)`

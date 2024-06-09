@@ -2,7 +2,11 @@ import {Container, Logo, Buttons, ContainerButtons, SocialContainer, Social} fro
 import instagram from '../Images/Instagram.svg'
 import facebook from '../Images/Facebook.svg'
 import twitter from '../Images/Twitter.svg'
+import {useAuth} from "../../hooks/useAuth";
+import {useSelector} from "react-redux";
 const Footer = () =>{
+    const {authed} = useAuth()
+    const {role} = useSelector(state => state.toolkit);
 
     return(
         <>
@@ -10,7 +14,7 @@ const Footer = () =>{
                 <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
                 <ContainerButtons>
                     <Buttons to={"/about"}>О нас</Buttons>
-                    <Buttons to={"/contact"}>Контакты</Buttons>
+                    {(authed && role === "USER") && <Buttons to={'/teach-app'}>Стать преподавателем</Buttons>}
                     <Buttons to={"/catalog"}>Курсы</Buttons>
                 </ContainerButtons>
                 <SocialContainer>

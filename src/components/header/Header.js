@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 import {useAuth} from "../../hooks/useAuth";
 
 const Header = () => {
-    const {login,id} = useSelector(state => state.toolkit);
+    const {login,id,role} = useSelector(state => state.toolkit);
     const {logout, authed} = useAuth();
 
     return (
@@ -22,8 +22,9 @@ const Header = () => {
                 <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
                 <ContainerButtons>
                     <Buttons to={'/catalog'}>Каталог</Buttons>
-                    {authed && <Buttons to={'/my-curses'}>Мои курсы</Buttons>}
                     <Buttons to={'/reviews'}>Отзывы</Buttons>
+                    {(role === "TEACHER" || role === "ADMIN") && <Buttons to={'/teacher/create-course'}>Конструктор курса</Buttons>}
+                    {role === "ADMIN" && <Buttons to={'/admin'}>Панель администратора</Buttons>}
                 </ContainerButtons>
                 <AuthContainer>
                     {authed ? <>

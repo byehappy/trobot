@@ -58,3 +58,18 @@ font-style: normal;
 font-weight: 400;
 line-height: 140%;
 `
+
+export const Desctop_h2=`
+    color: #000;
+font-family: Ubuntu,sans-serif;
+font-style: normal;
+font-weight: Bold;
+line-height: 140%;
+`
+export const Desctop_h3=`
+    color: #000;
+font-family: Ubuntu,sans-serif;
+font-style: normal;
+font-weight: 500;
+line-height: 140%;
+`
