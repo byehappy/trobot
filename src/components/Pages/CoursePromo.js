@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {useParams} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
 import {useDispatch, useSelector} from "react-redux";
-import {addError} from "../../toolkitRedux/errorSlice";
+import {addMessage} from "../../toolkitRedux/ToasterSlice";
 
 const CourseMaterialContainer = styled.div`
   padding: 20px;
@@ -41,6 +41,7 @@ const CoursePromo = () => {
     const { authed } = useAuth();
     const params = useParams();
     const id = params.id;
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetch(`http://localhost:3001/api/course-material/${id}`, { method: 'GET' })
@@ -65,9 +66,17 @@ const CoursePromo = () => {
             if (!response.ok) {
                 throw new Error("Failed to purchase course");
             }
+            const courseResponse = await fetch(`http://localhost:3001/api/courses/${id}`, {
+            method: "Get",
+                headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const course = await courseResponse.json()
+            dispatch(addMessage({type: "success", message: `вы успешно купили курс ${course.title}`}));
 
         } catch (error) {
-            console.error("Error purchasing course:", error);
+            dispatch(addMessage({type: "error", message: error.message}));
         }
     };
 
