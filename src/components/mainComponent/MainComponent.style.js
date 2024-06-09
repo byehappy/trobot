@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 export const MainContainer = styled.div`
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
   padding-top: 5vw;
 `
 
@@ -31,7 +32,7 @@ export const TextIntro = styled.div`
   }
 `
 
-export const ButtonIntro = styled.button`
+export const ButtonIntro = styled(Link)`
   outline: none;
   border: none;
   background: none;
@@ -42,6 +43,7 @@ export const ButtonIntro = styled.button`
   border-radius: 2vw;
   font-family: Quicksand, sans-serif;
   font-size: 2vw;
+  text-decoration: none;
 `
 export const PictureIntro = styled.img`
   width: 25vw;

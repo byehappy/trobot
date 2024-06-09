@@ -3,20 +3,19 @@ import {Desctop_subtitle} from "../../styles/styles";
 
 export const Container = styled.div`
   display: flex;
-  width: 80vw;
-  margin-left: 10vw;
+  max-width: 90%;
+  margin-left: 5vw;
   margin-top: 5vw;
   justify-content:space-around;
+  overflow-x: auto;
 `
 export const ContainerGrid = styled.div`
   display: grid;
-  grid-template-columns: 40% 40%;
+  grid-template-columns: 33% 33% 33%;
   row-gap: 2vw;
-  column-gap: 5vw;
-  width: 80vw;
-  max-width: 80vw;
-  margin-left: 14vw;
-  margin-right: 10vw;
+  column-gap: 5vw;   
+  max-width: 85%;
+  margin: 0 0.5% 0 0.5%;
   margin-top: 5vw;
 `
 export const Button = styled.button`

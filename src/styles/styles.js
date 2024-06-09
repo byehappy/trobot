@@ -1,8 +1,3 @@
-//для контейнеров
-export const baseMargin = `
-  margin-left: 10vw;
-  margin-right: 10vw;
-`;
 
 //брендовые цвета
 export const Blue =`

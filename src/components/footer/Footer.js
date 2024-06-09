@@ -7,13 +7,11 @@ const Footer = () =>{
     return(
         <>
             <Container>
-
                 <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
-
                 <ContainerButtons>
                     <Buttons to={"/about"}>О нас</Buttons>
-                    <Buttons>Контакты</Buttons>
-                    <Buttons>Курсы</Buttons>
+                    <Buttons to={"/contact"}>Контакты</Buttons>
+                    <Buttons to={"/catalog"}>Курсы</Buttons>
                 </ContainerButtons>
                 <SocialContainer>
                     <Social href='https://instagram.com/'><img src={instagram}/></Social>

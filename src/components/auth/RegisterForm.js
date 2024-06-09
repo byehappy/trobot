@@ -29,6 +29,7 @@ const RegisterForm = () => {
                 body: JSON.stringify({login: values.login, passwordHash: values.password,role:"USER",email:values.email})
             })
             if (!res.ok) {
+
                 dispatch(addMessage({type: "success", message: `Вы успешно прошли регистрацию! Пожалуйста авторизуйзуйтесь`}));
             }
         } catch (error){
