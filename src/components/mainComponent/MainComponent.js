@@ -1,6 +1,5 @@
 import {
     ButtonIntro,
-    ButtonSubs,
     ContainerIntro,
     FeatureContainer,
     FeatureGrid,
@@ -12,11 +11,7 @@ import {
     ReviewsBase,
     ReviewsContainer,
     ReviewsHeader,
-    ReviewsItem, SubsButtonOne, SubsButtonTwo,
-    SubsContainer,
-    SubsContBase,
-    SubsContOne, SubsContTwo,
-    SubsHeader,
+    ReviewsItem,
     TextIntro,
     UserList
 } from "./MainComponent.style";
@@ -33,7 +28,14 @@ import teacher from '../Images/teacher.svg'
 import user1 from '../Images/user1.svg'
 import user2 from '../Images/user2.svg'
 import stars from '../Images/5 star.svg'
+import {useEffect, useState} from "react";
+
 const MainComponent = () => {
+    const [dataCourses, setDataCourses] = useState(null);
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/courses",{method:"GET"}).then(res => res.json()).then(data => setDataCourses(data)).catch(err => console.log(err))
+    }, []);
 
     return (
         <MainContainer>
@@ -49,7 +51,7 @@ const MainComponent = () => {
                 <PictureIntro src={intro}/>
             </ContainerIntro>
             <Partners>
-                <div className='text'>Наши партнеры</div>
+                <div className={"text"}>Наши партнеры</div>
                 <img src={ya}/>
                 <img src={Super}/>
                 <img src={xiaomi}/>
@@ -83,50 +85,23 @@ const MainComponent = () => {
                         в робототехнике!"</h1><h2>Если вы хотите стать экспертом в области робототехники, то этот курс -
                         отличный выбор для вас. Он предоставляет самые современные и эффективные методы обучения,
                         которые помогут вам освоить все необходимые навыки и стать профессионалом в этой области</h2>
-                        <UserList><img src={user2}/><div className='text'>Илья Жуков<br/>
-                            <span>Россия, Владимир</span><br/><img src={stars}/></div></UserList>
+                        <UserList><img src={user2}/>
+                            <div className='text'>Илья Жуков<br/>
+                                <span>Россия, Владимир</span><br/><img src={stars}/></div>
+                        </UserList>
                     </ReviewsItem>
                     <ReviewsItem><h1>"Благодаря помощи кураторов, я
                         без труда справился со сложными заданиями!"</h1><h2>Если у вас возникли вопросы или трудности в
                         ходе обучения,
                         не стоит так беспокоиться. Кураторы этого курса всегда готовы помочь вам и ответить на все ваши
                         вопросы. Благодаря их опыту, вы без труда справитесь со сложными заданиями.</h2>
-                        <UserList><img src={user1}/><div className='text'>Иван Артемьев<br/>
-                            <span>Россия, Москва</span><br/><img src={stars}/></div></UserList>
+                        <UserList><img src={user1}/>
+                            <div className='text'>Иван Артемьев<br/>
+                                <span>Россия, Москва</span><br/><img src={stars}/></div>
+                        </UserList>
                     </ReviewsItem>
                 </ReviewsContainer>
             </ReviewsBase>
-            <SubsContainer>
-                <SubsHeader><span>ПОДПИШИСЬ ЧТОБЫ ПОЛУЧИТЬ ДОСТУП КО ВСЕМ КУРСАМ</span><ButtonSubs>Начать обучение</ButtonSubs></SubsHeader>
-                <SubsContBase>
-                    <SubsContOne>
-                        Классический план обучения
-                        <h1>Бесплатно</h1>
-                        Перед вами открыт мир: исследуйте новые пути и протоптайте свой путь к успеху
-                        <ul>
-                            <li><span>Доступ к бесплатным курсам</span></li>
-                            <li><span>Без вложений</span></li>
-                            <li><span>Легко находимые материалы</span></li>
-                        </ul>
-                        <SubsButtonOne>
-                            Ваш тариф
-                        </SubsButtonOne>
-                    </SubsContOne>
-                    <SubsContTwo>
-                        Продвинутый план обучения
-                        <h1>4.999 руб / мес.</h1>
-                        Перед вами открыт мир: исследуйте новые пути и протоптайте свой путь к успеху
-                        <ul>
-                            <li><span>Доступ ко всем курсам</span></li>
-                            <li><span>Без вложений</span></li>
-                            <li><span>Легко находимые материалы</span></li>
-                        </ul>
-                        <SubsButtonTwo>
-                            Начать обучение
-                        </SubsButtonTwo>
-                    </SubsContTwo>
-                </SubsContBase>
-            </SubsContainer>
         </MainContainer>
     )
 }

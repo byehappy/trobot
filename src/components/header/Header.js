@@ -1,35 +1,44 @@
-import {AuthContainer, AuthLog, Buttons, Container, ContainerButtons, Logo, Registration} from "./Header.style";
-import {useState} from "react";
-import Modal from "../auth/Modal";
+import {
+    AccountLink,
+    AuthContainer,
+    AuthLog,
+    Buttons,
+    Container,
+    ContainerButtons,
+    ExitButton,
+    Logo,
+    Registration
+} from "./Header.style";
+import {useSelector} from "react-redux";
+import {useAuth} from "../../hooks/useAuth";
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const[authForm,setAuthForm] = useState(null)
-    const RegForm = () => {
-        setIsOpen(true);
-        setAuthForm(true)
-    }
-    const AuthForm = () => {
-        setIsOpen(true);
-        setAuthForm(false)
-    }
+    const {login,id,role} = useSelector(state => state.toolkit);
+    const {logout, authed} = useAuth();
 
-    const handleCloseModal = () => {
-        setIsOpen(false);
-    }
     return (
         <>
             <Container>
-                <Logo><span style={{color: 'blue'}}>T</span>Robot</Logo>
+                <Logo to={'/'}><span style={{color: 'blue'}}>T</span>Robot</Logo>
                 <ContainerButtons>
-                    <Buttons>Каталог</Buttons>
-                    <Buttons>Мои курсы</Buttons>
-                    <Buttons>Отзывы</Buttons>
+                    <Buttons to={'/catalog'}>Каталог</Buttons>
+                    <Buttons to={'/reviews'}>Отзывы</Buttons>
+                    {(role === "TEACHER" || role === "ADMIN") && <Buttons to={'/teacher/create-course'}>Конструктор курса</Buttons>}
+                    {role === "ADMIN" && <Buttons to={'/admin'}>Панель администратора</Buttons>}
                 </ContainerButtons>
                 <AuthContainer>
-                    <Registration onClick={RegForm}>Регистрация</Registration>
-                    <AuthLog onClick={AuthForm}>Войти</AuthLog>
-                    {isOpen && <Modal authForm={authForm} open={isOpen} onClose={handleCloseModal}/>}
+                    {authed ? <>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "start"
+                        }}>Привет, {login}! <ExitButton onClick={logout}>Выйти</ExitButton></div>
+                        <AccountLink to={`/my-account/${id}`}>Личный кабинет</AccountLink>
+                    </> : <>
+                        <Registration to={'/auth/signup'}>Регистрация</Registration>
+                        <AuthLog to={'/auth/signin'}>Войти</AuthLog>
+                    </>
+                    }
                 </AuthContainer>
             </Container>
         </>
