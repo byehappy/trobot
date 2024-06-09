@@ -3,8 +3,8 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { addError } from "../../toolkitRedux/errorSlice";
 import styled from "styled-components";
+import {addMessage} from "../../toolkitRedux/ToasterSlice";
 
 const FormField = styled(Field)`
   background: white;
@@ -67,7 +67,7 @@ export const TeachAppPage = () => {
             //TODO: присылать тоастер об успешной отправке заявки
             navigate("/");
         } catch (error) {
-            dispatch(addError(error.message));
+            dispatch(addMessage(error.message));
         }
     };
 

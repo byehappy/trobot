@@ -38,7 +38,6 @@ const PurchaseButton = styled.button`
 const CoursePromo = () => {
     const [courseMaterial, setCourseMaterial] = useState(null);
     const [checkPurchase, setCheckPurchase] = useState(null);
-    const dispatch = useDispatch();
     const userId = useSelector(state => state.toolkit.id);
     const {authed} = useAuth();
     const params = useParams();
@@ -52,7 +51,7 @@ const CoursePromo = () => {
                 const data = await res.json();
                 setCourseMaterial(data);
             } catch (err) {
-                dispatch(addError(err.message));
+                dispatch(addMessage(err.message));
             }
         };
 
@@ -67,7 +66,7 @@ const CoursePromo = () => {
                     const data = await res.json();
                     setCheckPurchase(data.purchased);
                 } catch (err) {
-                    dispatch(addError(err.message));
+                    dispatch(addMessage(err.message));
                 }
             }
         };

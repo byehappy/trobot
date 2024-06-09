@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchLessons } from '../../toolkitRedux/lessonsSlice';
 import styled from 'styled-components';
-import { addError } from "../../toolkitRedux/errorSlice";
 import { Desctop_h2, Desctop_h3, Desctop_subtitle } from "../../styles/styles";
 import anime from 'animejs/lib/anime.es.js';
+import {addMessage} from "../../toolkitRedux/ToasterSlice";
 
 const LessonList = () => {
     const [course, setCourse] = useState(null);
@@ -24,7 +24,7 @@ const LessonList = () => {
         fetch(`http://localhost:3001/api/courses/${id}`, { method: 'GET' })
             .then(res => res.json())
             .then(data => setCourse(data))
-            .catch(err => dispatch(addError(err.message)));
+            .catch(err => dispatch(addMessage(err.message)));
     }, [dispatch, id]);
 
     const toggleBlock = (blockId) => {
@@ -160,7 +160,7 @@ const Lesson = styled.div`
 
 const LessonName = styled.div`
     font-size: 20px;
-    ${Desctop_h3}
+    ${Desctop_h3};
     margin-left: 10px;
 `;
 
@@ -171,7 +171,7 @@ const LessonPart = styled.div`
 
 const LessonDuration = styled.div`
     font-size: 16px;
-    ${Desctop_h3}
+    ${Desctop_h3};
     margin-left: auto;
 `;
 
