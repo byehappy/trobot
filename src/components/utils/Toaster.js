@@ -1,30 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef  } from 'react';
+import anime from 'animejs';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeError } from "../../toolkitRedux/errorSlice";
+import { removeMessage } from "../../toolkitRedux/ToasterSlice";
+import {
+    ToasterContainer,
+    Toast,
+    ToasterIcon,
+    ToasterMessage,
+    CloseButton,
+    CloseIcon,
+    ExclamationIcon, DoneIcon
+} from "./Toaster.style";
 
-const Toaster = () => {
-    const dispatch = useDispatch();
-    const errors = useSelector(state => state.errors.errors);
+const ToasterWrapper = () => {
+    const messages = useSelector(state => state.messages.messages);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (errors.length > 0) {
-                dispatch(removeError(0));
-            }
-        }, 5000);
-        return () => clearTimeout(timeout);
-    }, [errors, dispatch]);
 
     return (
-        <div style={{ position: 'fixed', bottom: 10, right: 10, zIndex: 9999 }}>
-            {errors.map((error, index) => (
-                <div key={index} style={{ background: 'red', color: 'white', padding: 10,margin:5 }}>
-                    {error}
-                    <button style={{margin:5}} onClick={() => dispatch(removeError(index))}>✖️</button>
-                </div>
+        <ToasterContainer>
+            {messages.map((message, index) => (
+                <Toaster properties={message} key={message.id} index={index} />
             ))}
-        </div>
+        </ToasterContainer>
     );
 };
 
-export default Toaster;
+export default ToasterWrapper;
+
+const Toaster = ({properties, index}) => {
+    const toasterRef = useRef(null);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        anime({
+            targets: toasterRef.current,
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 1000,
+            easing: 'easeInOutQuad'
+        });
+        const timeout = setTimeout(() => {
+            anime({
+                targets: toasterRef.current,
+                opacity: [1, 0],
+                translateY: [0, -20],
+                duration: 1000,
+                easing: 'easeInOutQuad',
+                complete: () => {
+                        dispatch(removeMessage(0));
+                }
+            });
+        }, 5000);
+
+        return () => clearTimeout(timeout);
+    }, []);
+
+    return <Toast ref={toasterRef} type={properties.type}>
+        <ToasterIcon>
+            {properties.type === "error" ? <ExclamationIcon />: <DoneIcon/>}
+        </ToasterIcon>
+        <ToasterMessage>{properties.message}</ToasterMessage>
+        <CloseButton onClick={() => dispatch(removeMessage(index))}>
+            <CloseIcon />
+        </CloseButton>
+    </Toast>
+}
